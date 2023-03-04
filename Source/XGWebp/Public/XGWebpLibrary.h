@@ -1,0 +1,19 @@
+// Copyright 2023 XiaoGang 
+#pragma once
+#include "CoreMinimal.h"
+#include "Core/XGWebpType.h"
+#include "XGWebpLibrary.generated.h"
+UCLASS()
+class XGWEBP_API UXGWebpLibrary : public UObject
+{
+	GENERATED_BODY()
+
+public:
+
+	static	bool BeginRecord(UObject* WorldContextObject, FString InGeneratedWebpPicturesPath, FXGWebpPictureInformation InWebpPictureInformation);
+
+	static	bool BeginRecordFullViewport(UObject* WorldContextObject, FString InGeneratedWebpPicturesPath);
+
+	static	void EndRecord(UObject* WorldContextObject, FSimpleDelegate InFinisnWebpDelegate = FSimpleDelegate(), FXGWebpFinishGenerateWebp InFinshWebpBPDelegate = FXGWebpFinishGenerateWebp());
+
+};
