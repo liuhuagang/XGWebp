@@ -1,5 +1,4 @@
-// Copyright 2023 XiaoGang 
-
+// Copyright 2023 XiaoGang , Inc. All Rights Reserved.
 using UnrealBuildTool;
 
 public class XGWebp : ModuleRules
@@ -20,9 +19,8 @@ public class XGWebp : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core",
-				"XGWebpLibrary",
-				"Projects"
+		
+
 
 			}
 			);
@@ -30,12 +28,15 @@ public class XGWebp : ModuleRules
 		
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
-			{
-				"CoreUObject",
+            {       "Core",
+                "CoreUObject",
 				"Engine",
-                "RenderCore"
+                "RenderCore",
 
-			}
+                "XGWebpLibrary",
+                "Projects"
+
+            }
 			);
 		
 		

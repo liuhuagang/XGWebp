@@ -1,9 +1,12 @@
-// Copyright 2023 XiaoGang 
+// Copyright 2023 XiaoGang , Inc. All Rights Reserved.
 #include "Core/XGWebpCore.h"
 #include "iostream"
 #include "vector"
 #include "Slate/SceneViewport.h"
 #include "Core/XGWebpLib.h"
+#include "Engine/GameViewportClient.h"
+#include "Engine/World.h"
+#include "Misc/Paths.h"
 PRAGMA_DISABLE_OPTIMIZATION
 
 bool FXGWebpCore::GenerateStaticWebpPicture(FString& InPicturePath,

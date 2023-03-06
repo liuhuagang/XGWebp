@@ -1,10 +1,13 @@
 // Copyright 2023 XiaoGang 
 #include "Core/XGWebpMangeSubSystem.h"
 #include "Core/XGWebpCore.h"
+#include "Engine/World.h"
+#include "Async/Async.h"
 
 bool UXGWebpMangeSubSystem::ShouldCreateSubsystem(UObject* Outer) const
 {
 	return true;
+
 }
 
 void UXGWebpMangeSubSystem::Initialize(FSubsystemCollectionBase& Collection)

@@ -4,6 +4,7 @@
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "XGWebpType.h"
+#include "Tickable.h"
 #include "XGWebpMangeSubSystem.generated.h"
 
 DECLARE_DELEGATE_OneParam(FGenerateWebpCallBack,bool)

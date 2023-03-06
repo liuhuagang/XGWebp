@@ -37,7 +37,7 @@ bool FXGWebpLibStruct::GenerateWebpByRGBA(const char* InWebpSavePath,
 		return false;
 	}
 
-	// 在目标路径生成Webp文件
+
 	FILE* FDes = fopen(InWebpSavePath, "wb");
 	if (FDes)
 	{
@@ -124,7 +124,7 @@ bool FXGWebpLibStruct::GenerateDymaicWebpByRGBA(const char* InWebpSavePath,
 	WebPAnimEncoderDelete(Enc);
 
 
-	// 在目标路径生成Webp文件
+
 	FILE* FDes = fopen(InWebpSavePath, "wb");
 	if (FDes)
 	{
@@ -170,7 +170,6 @@ bool FXGWebpLibStruct::ResizeDynamicWebp(const char* InResizedWebpPath,
 	if (!FFileSource)
 	{
 		bSucceed = false;
-	//	printf("Open FilePath:`%s`_Failed", InResizedWebpPath);
 		return bSucceed;
 	}
 	unsigned char* FileOriginalData;
