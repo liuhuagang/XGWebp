@@ -13,7 +13,7 @@ you can use the beginrecord or beginrecord fullviewport.They are no more differe
 I strongly recommand you to use full viewport ,because  if you input wrong picture position ,you will not get right Beginning.
 The extension must end with ".webp".
 So ,the right path is "D:/Webp/xg.webp"
-![image](DocumentPicture/XG_Webp_BeginRecord_Information)
+![image](DocumentPicture/XG_Webp_BeginRecord_Information.png)
 (X0,Y0)->(X1,Y1)If you want to get the pictrue size with 600x600,you can input (0,0) and (599,599)
 If you want to get the center of viewport picture with 600x600,when Screen Size is 1920x1080,maybe
 you can input (660,240) and(1259,839).
@@ -25,7 +25,7 @@ The bool bBegin means whether to begin sucessfull. you must call beginrecord rig
 After you executed beginning, we will  record every fram Color data,you don not do more work. It costs much ,so ,be careful how long time you will record.
 ### 4.EndRecording
 XG_Webp_EndRecord
-![image](DocumentPicture/XG_Webp_EndRecord)
+![image](DocumentPicture/XG_Webp_EndRecord.png)
 just when you need ,end this Record. We will generate webp in right path .It is async. when finished ,we will call you with delegate.
 
 ### 5.Notes
@@ -47,6 +47,12 @@ Plugin Core APi. you can use these api directly .
 ### 3.FXGWebpLibStruct
 if you are not familiar with C++,You had better not use it directily .It is used to contact with libwebp. 
 Many method wil be firset added to here ,Then to FXGWebpCore,Finally to UXGWebpLibrary And UXGWebpBPLibrary.
+
+### 4.UXGWebpMangeSubSystem
+do not use it, it just provide working with webp from blueprint.
+
+### 5.XGWebpType.h
+Some delegate type ,log ,InformationStruct and so on.
 
 ## Conclusion
 Thanks for your support. now ,this is simple webp function ,more function will be added ~~
