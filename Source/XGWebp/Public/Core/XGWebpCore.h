@@ -1,18 +1,21 @@
-// Copyright 2023 XiaoGang 
+// Copyright Xiao Gang. All Rights Reserved.
 #pragma once
 
 
 #include "CoreMinimal.h"
 #include "XGWebpType.h"
 
-class  FXGWebpCore : public UObject
+class  XGWEBP_API FXGWebpCore : public UObject
 {
 public:
+
+    /** Just one picture within webp */
     static bool GenerateStaticWebpPicture(FString& InPicturePath,
         TArray<FColor>& InPictureColors,
         FVector2D& InPictureSize,
         int32           InQualityFactor = 100);
 
+    /** Many pictures within webp */
 	static bool GenerateDynamicWebpPicture(
         FString& InPicturePath,
         TSharedPtr<FXGWebpPictureInformation> InWebpPictureInformation,

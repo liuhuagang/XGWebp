@@ -1,4 +1,4 @@
-// Copyright 2023 XiaoGang , Inc. All Rights Reserved.
+// Copyright Xiao Gang. All Rights Reserved.
 #include "Core/XGWebpCore.h"
 #include "iostream"
 #include "vector"
@@ -16,7 +16,6 @@ bool FXGWebpCore::GenerateStaticWebpPicture(FString& InPicturePath,
 {
     if (!CheckWebpPicturePath(InPicturePath))
     {
-		UE_LOG(LogXGWebp, Display, TEXT("FXGWebpCore::GenerateStaticWebpPicture Wrong Path"));
         return false;
     }
     if (InPictureColors.Num() != InPictureSize.X * InPictureSize.Y)
@@ -155,6 +154,7 @@ bool FXGWebpCore::CheckWebpPicturePath(FString& InGeneratedWebpPicturesPath)
 	{
 		return true;
 	}
+	UE_LOG(LogXGWebp, Warning, TEXT("FXGWebpCore::CheckWebpPicturePath Wrong Path"));
 	return false;
 }
 
@@ -179,7 +179,7 @@ bool FXGWebpCore::CheckInWebpPictureSize(UObject* WorldContextObject, TSharedPtr
 			return true;
 		}
 	}
-
+	UE_LOG(LogXGWebp, Warning, TEXT("FXGWebpCore::CheckInWebpPictureSize Wrong WebpPictureSize"));
 	return false;
 }
 

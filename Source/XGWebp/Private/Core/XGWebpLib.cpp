@@ -1,4 +1,4 @@
-// Copyright 2023 XiaoGang 
+// Copyright Xiao Gang. All Rights Reserved.
 #define _CRT_SECURE_NO_WARNINGS
 #include "Core/XGWebpLib.h"
 #include "iostream"
@@ -73,23 +73,25 @@ bool FXGWebpLibStruct::GenerateDymaicWebpByRGBA(const char* InWebpSavePath,
 	{
 		return false;
 	}
-	WebPConfig config;
-	if (!WebPConfigInit(&config))
+	WebPConfig WebpPictureConfig;
+	if (!WebPConfigInit(&WebpPictureConfig))
 	{
 		return false;
 	}
 
-	WebPAnimEncoderOptions enc_options;
+	WebPAnimEncoderOptions EncodeOptions;
 
-	if (!WebPAnimEncoderOptionsInit(&enc_options))
+	if (!WebPAnimEncoderOptionsInit(&EncodeOptions))
 	{
 		return false;
 	}
-	enc_options.kmin = 0;
-	enc_options.kmax = 1;
-	config.lossless = 0;
-	config.method = 4;
-	config.quality = InQualityFactor;
+
+
+	EncodeOptions.kmin = 0;
+	EncodeOptions.kmax = 1;
+	WebpPictureConfig.lossless = 0;
+	WebpPictureConfig.method = 4;
+	WebpPictureConfig.quality = InQualityFactor;
 
 	WebPAnimEncoderOptions Enc_options;
 	if (!WebPAnimEncoderOptionsInit(&Enc_options))
@@ -97,45 +99,45 @@ bool FXGWebpLibStruct::GenerateDymaicWebpByRGBA(const char* InWebpSavePath,
 		return false;
 	}
 
-	WebPAnimEncoder* Enc = WebPAnimEncoderNew(InWidth, InHeight, &Enc_options);
-	if (!Enc)
+	WebPAnimEncoder* Encoder = WebPAnimEncoderNew(InWidth, InHeight, &Enc_options);
+	if (!Encoder)
 	{
 		return false;
 	}
-	float                                       Timestamp = 0.f;
+	float                                       TimePoint = 0.f;
 	std::vector<const unsigned char*>::iterator DataItem = InRGBADatas.begin();
 	std::vector<int>::iterator                  TimeStepItem = InTimestamps_ms.begin();
 	for (; DataItem != InRGBADatas.end(); ++DataItem, ++TimeStepItem)
 	{
-		WebPPicture Picture;
-		WebPPictureInit(&Picture);
-		Picture.use_argb = 1;
-		Picture.width = InWidth;
-		Picture.height = InHeight;
-		Picture.argb_stride = InWidth * 4;
-		WebPPictureImportRGBA(&Picture, *DataItem, InWidth * 4);
-		Timestamp += *TimeStepItem;
-		WebPAnimEncoderAdd(Enc, &Picture, Timestamp, &config);
-		WebPPictureFree(&Picture);
+		WebPPicture WebpOneFramePicture;
+		WebPPictureInit(&WebpOneFramePicture);
+		WebpOneFramePicture.use_argb = 1;
+		WebpOneFramePicture.width = InWidth;
+		WebpOneFramePicture.height = InHeight;
+		WebpOneFramePicture.argb_stride = InWidth * 4;
+		WebPPictureImportRGBA(&WebpOneFramePicture, *DataItem, InWidth * 4);
+		TimePoint += *TimeStepItem;
+		WebPAnimEncoderAdd(Encoder, &WebpOneFramePicture, TimePoint, &WebpPictureConfig);
+		WebPPictureFree(&WebpOneFramePicture);
 	}
-	WebPAnimEncoderAdd(Enc, NULL, Timestamp, NULL);
-	WebPData WebpData;
-	WebPAnimEncoderAssemble(Enc, &WebpData);
-	WebPAnimEncoderDelete(Enc);
+	WebPAnimEncoderAdd(Encoder, NULL, TimePoint, NULL);
+	WebPData WebpPictureData;
+	WebPAnimEncoderAssemble(Encoder, &WebpPictureData);
+	WebPAnimEncoderDelete(Encoder);
 
 
 
 	FILE* FDes = fopen(InWebpSavePath, "wb");
 	if (FDes)
 	{
-		fwrite(WebpData.bytes, WebpData.size, 1, FDes);
+		fwrite(WebpPictureData.bytes, WebpPictureData.size, 1, FDes);
 		fclose(FDes);
 
-		WebPDataClear(&WebpData);
+		WebPDataClear(&WebpPictureData);
 
 		return true;
 	}
-	WebPDataClear(&WebpData);
+	WebPDataClear(&WebpPictureData);
 
 #endif
 	return false;
@@ -187,9 +189,9 @@ bool FXGWebpLibStruct::ResizeDynamicWebp(const char* InResizedWebpPath,
 	WebPAnimDecoderOptions DecOptions;
 	WebPAnimDecoderOptionsInit(&DecOptions);
 
-	WebPAnimDecoder* Dec = WebPAnimDecoderNew(&OriginWebpData, &DecOptions);
+	WebPAnimDecoder* Decoder = WebPAnimDecoderNew(&OriginWebpData, &DecOptions);
 	WebPAnimInfo     AnimInfo;
-	WebPAnimDecoderGetInfo(Dec, &AnimInfo);
+	WebPAnimDecoderGetInfo(Decoder, &AnimInfo);
 
 
 	WebPConfig Config;
@@ -204,17 +206,17 @@ bool FXGWebpLibStruct::ResizeDynamicWebp(const char* InResizedWebpPath,
 	Config.method = 4;
 	Config.quality = (float)InQualityFactor;
 
-	WebPAnimEncoder* Enc = WebPAnimEncoderNew(InResizeWidth, InResizeHight, &EncOptions);
+	WebPAnimEncoder* Encoder = WebPAnimEncoderNew(InResizeWidth, InResizeHight, &EncOptions);
 
 
 
 	int framNum = 0;
 	int Timestamp = 0;
-	while (WebPAnimDecoderHasMoreFrames(Dec))
+	while (WebPAnimDecoderHasMoreFrames(Decoder))
 	{
 		uint8_t* buf;
 
-		WebPAnimDecoderGetNext(Dec, &buf, &Timestamp);
+		WebPAnimDecoderGetNext(Decoder, &buf, &Timestamp);
 		int OriginHeight = AnimInfo.canvas_height;
 		int OriginWidth = AnimInfo.canvas_width;
 
@@ -227,18 +229,18 @@ bool FXGWebpLibStruct::ResizeDynamicWebp(const char* InResizedWebpPath,
 		WebPPictureAlloc(&Picture);
 		WebPPictureImportRGBA(&Picture, buf, OriginWidth * 4);
 		WebPPictureRescale(&Picture, InResizeWidth, InResizeHight);
-		WebPAnimEncoderAdd(Enc, &Picture, Timestamp, &Config);
+		WebPAnimEncoderAdd(Encoder, &Picture, Timestamp, &Config);
 		WebPPictureFree(&Picture);
 		framNum++;
 	}
-	WebPAnimDecoderReset(Dec);
-	WebPAnimDecoderDelete(Dec);
+	WebPAnimDecoderReset(Decoder);
+	WebPAnimDecoderDelete(Decoder);
 
-	WebPAnimEncoderAdd(Enc, NULL, Timestamp, NULL);
+	WebPAnimEncoderAdd(Encoder, NULL, Timestamp, NULL);
 
 	WebPData WebpData;
-	WebPAnimEncoderAssemble(Enc, &WebpData);
-	WebPAnimEncoderDelete(Enc);
+	WebPAnimEncoderAssemble(Encoder, &WebpData);
+	WebPAnimEncoderDelete(Encoder);
 
 
 	FILE* FDes = fopen(InWebpSavePath, "wb");

@@ -1,19 +1,28 @@
-// Copyright 2023 XiaoGang 
+// Copyright Xiao Gang. All Rights Reserved.
 #include "XGWebpBPLibrary.h"
 #include "XGWebpLibrary.h"
 
-bool UXGWebpBPLibrary::BeginRecord(UObject* WorldContextObject,FString InGeneratedWebpPicturesPath, FXGWebpPictureInformation InWebpPictureInformation)
+void UXGWebpBPLibrary::BeginRecord(
+	UObject* WorldContextObject,
+	FString InGeneratedWebpPicturesPath,
+	FXGWebpPictureInformation InWebpPictureInformation,
+	bool& bBegin)
 {
-	return UXGWebpLibrary::BeginRecord(WorldContextObject,InGeneratedWebpPicturesPath, InWebpPictureInformation);
+	bBegin = UXGWebpLibrary::BeginRecord(WorldContextObject, InGeneratedWebpPicturesPath, InWebpPictureInformation);
 }
 
-bool UXGWebpBPLibrary::BeginRecordFullViewport(UObject* WorldContextObject, FString InGeneratedWebpPicturesPath)
+void UXGWebpBPLibrary::BeginRecordFullViewport(
+	UObject* WorldContextObject,
+	FString InGeneratedWebpPicturesPath,
+	bool& bBegin)
 {
-	return UXGWebpLibrary::BeginRecordFullViewport( WorldContextObject,  InGeneratedWebpPicturesPath);
+	bBegin = UXGWebpLibrary::BeginRecordFullViewport(WorldContextObject, InGeneratedWebpPicturesPath);
 }
 
-void UXGWebpBPLibrary::EndRecord(UObject* WorldContextObject, FXGWebpFinishGenerateWebp InFinishWebpBPDegelete)
+void UXGWebpBPLibrary::EndRecord(
+	UObject* WorldContextObject,
+	FXGWebpFinishGenerateWebp InFinishWebpBPDegelete)
 {
-	UXGWebpLibrary::EndRecord(WorldContextObject,FSimpleDelegate(), InFinishWebpBPDegelete);
+	UXGWebpLibrary::EndRecord(WorldContextObject, FSimpleDelegate(), InFinishWebpBPDegelete);
 }
 

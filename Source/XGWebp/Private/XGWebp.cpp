@@ -1,4 +1,4 @@
-// Copyright 2023 XiaoGang 
+// Copyright Xiao Gang. All Rights Reserved.
 
 #include "XGWebp.h"
 #include "Core.h"

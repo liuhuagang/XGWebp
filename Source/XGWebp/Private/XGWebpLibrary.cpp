@@ -1,4 +1,4 @@
-// Copyright 2023 XiaoGang 
+// Copyright Xiao Gang. All Rights Reserved.
 #include "XGWebpLibrary.h"
 #include "Core/XGWebpMangeSubSystem.h"
 #include "Kismet/GameplayStatics.h"

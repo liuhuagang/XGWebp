@@ -1,4 +1,4 @@
-// Copyright 2023 XiaoGang 
+// Copyright Xiao Gang. All Rights Reserved.
 #pragma once
 
 #include "CoreMinimal.h"
@@ -9,8 +9,11 @@
 
 DECLARE_DELEGATE_OneParam(FGenerateWebpCallBack,bool)
 
-UCLASS(BlueprintType)
-class XGWEBP_API UXGWebpMangeSubSystem : public UGameInstanceSubsystem, public FTickableGameObject
+/**
+ * Internal use,maybe you can use FXGwebpCore API or XGWebpLibrary.
+ */
+UCLASS()
+class  UXGWebpMangeSubSystem : public UGameInstanceSubsystem, public FTickableGameObject
 {
 	friend class UXGWebpLibrary;
 	

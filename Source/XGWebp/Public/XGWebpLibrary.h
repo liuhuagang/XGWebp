@@ -1,8 +1,12 @@
-// Copyright 2023 XiaoGang 
+// Copyright Xiao Gang. All Rights Reserved.
 #pragma once
 #include "CoreMinimal.h"
 #include "Core/XGWebpType.h"
 #include "XGWebpLibrary.generated.h"
+
+/**
+ * Provide to use C++ API
+ */
 UCLASS()
 class XGWEBP_API UXGWebpLibrary : public UObject
 {

@@ -1,4 +1,4 @@
-// Copyright 2023 XiaoGang 
+// Copyright Xiao Gang. All Rights Reserved.
 #pragma once
 #include "CoreMinimal.h"
 #include "XGWebpType.generated.h"

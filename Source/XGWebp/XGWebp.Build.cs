@@ -1,4 +1,4 @@
-// Copyright 2023 XiaoGang , Inc. All Rights Reserved.
+// Copyright Xiao Gang. All Rights Reserved.
 using UnrealBuildTool;
 
 public class XGWebp : ModuleRules
