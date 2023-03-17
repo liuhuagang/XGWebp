@@ -102,16 +102,16 @@ void UXGWebpMangeSubSystem::EndRecord(FSimpleDelegate& InFinisnWebpDelegate, FXG
 	AsyncTask(ENamedThreads::AnyThread, [&]()
 		{
 			FPlatformProcess::Sleep(0.2);
-			FScopeLock XGLock(&XGWebpMutex);
+	FScopeLock XGLock(&XGWebpMutex);
 
-			bool GenerateWebp = FXGWebpCore::GenerateDynamicWebpPicture(
-				GeneratedWebpPicturesPath,
-				WebpPictureInformation,
-				WebPColor,
-				WebpTimestepMillisecond
-			);
+	bool GenerateWebp = FXGWebpCore::GenerateDynamicWebpPicture(
+		GeneratedWebpPicturesPath,
+		WebpPictureInformation,
+		WebPColor,
+		WebpTimestepMillisecond
+	);
 
-		AsyncTask(ENamedThreads::GameThread, [&,GenerateWebp]() {
+	AsyncTask(ENamedThreads::GameThread, [&, GenerateWebp]() {
 
 		GenerateWebpCallBackDelegate.ExecuteIfBound(GenerateWebp);
 
@@ -153,19 +153,19 @@ void UXGWebpMangeSubSystem::ResetRecord()
 void UXGWebpMangeSubSystem::ScreenShotCallback(int32 InWidth, int32 InHeight, const TArray<FColor>& InColors)
 {
 
-	AsyncTask(ENamedThreads::AnyThread, [&,InWidth, InHeight, InColors]() {
+	AsyncTask(ENamedThreads::AnyThread, [&, InWidth, InHeight, InColors]() {
 
 
-	FScopeLock XGLock(&XGWebpMutex);
+		FScopeLock XGLock(&XGWebpMutex);
 
 	TArray<FColor> OutColors;
 	for (int32 IndexY = 1; IndexY <= InHeight; IndexY++)
 	{
 		for (int32 IndexX = 1; IndexX <= InWidth; IndexX++)
 		{
-			//这个是像素坐标之和
+
 			int32 IndexXY = (IndexY - 1) * InWidth + IndexX;
-			//这个是对应的颜色坐标
+
 			int32 IndexArray = IndexXY - 1;
 			bool  bIndexX = (IndexX >= WebpPictureInformation->X0 + 1) && (IndexX <= WebpPictureInformation->X1 + 1);
 			bool  bIndexY = (IndexY >= WebpPictureInformation->Y0 + 1) && (IndexY <= WebpPictureInformation->Y1 + 1);

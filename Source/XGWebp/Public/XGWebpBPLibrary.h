@@ -45,13 +45,13 @@ public:
 	 *											The directory must be established.Path can not be root directory.Such as :"D:/xgPicture.webp"
 	 *											The extension must end with ".webp"
 	 * @param	bBegin							Whether to succeed to begin Recording Webp
-	 * @return	Whether to succeed to begin Recording Webp
+	 * @return	
 	 */
 	UFUNCTION(BlueprintCallable, Category = "XGWebp", meta = (WorldContext = "WorldContextObject"))
 		static	void BeginRecordFullViewport(
 		UObject* WorldContextObject, 
 		FString InGeneratedWebpPicturesPath,
-		 bool& bBegin);
+		bool& bBegin);
 
 	/**
 	 * End to record date ,Then to generate Webp.It may be long time,so it is async.please wait to call back from InFinishWebpBPDegelete.
