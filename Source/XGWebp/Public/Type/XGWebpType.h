@@ -5,7 +5,7 @@
 
 
 
-DECLARE_LOG_CATEGORY_EXTERN(LogXGWebp, Log, All);
+
 DECLARE_DYNAMIC_DELEGATE_OneParam(FXGWebpFinishGenerateWebp,bool,bFinishGenerate);
 
 USTRUCT(BlueprintType)

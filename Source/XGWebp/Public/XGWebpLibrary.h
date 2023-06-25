@@ -1,7 +1,7 @@
 // Copyright Xiao Gang. All Rights Reserved.
 #pragma once
 #include "CoreMinimal.h"
-#include "Core/XGWebpType.h"
+#include "XGWebpType.h"
 #include "XGWebpLibrary.generated.h"
 
 /**
@@ -19,5 +19,7 @@ public:
 	static	bool BeginRecordFullViewport(UObject* WorldContextObject, FString InGeneratedWebpPicturesPath);
 
 	static	void EndRecord(UObject* WorldContextObject, FSimpleDelegate InFinisnWebpDelegate = FSimpleDelegate(), FXGWebpFinishGenerateWebp InFinshWebpBPDelegate = FXGWebpFinishGenerateWebp());
+
+	static	void LoadWebp(UObject* WorldContextObject, FString InWebpFilePath);
 
 };

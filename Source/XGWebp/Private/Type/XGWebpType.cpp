@@ -1,7 +1,7 @@
 // Copyright Xiao Gang. All Rights Reserved.
-#include "Core/XGWebpType.h"
+#include "XGWebpType.h"
 
-DEFINE_LOG_CATEGORY(LogXGWebp);
+
 
 FXGWebpPictureInformation::FXGWebpPictureInformation() :
 	X0(0),

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
-#include "Core/XGWebpType.h"
+#include "XGWebpType.h"
 #include "XGWebpBPLibrary.generated.h"
 
 
@@ -30,7 +30,7 @@ public:
 	 * @param	bBegin							Whether to succeed to begin Recording Webp
 	 * @return	
 	 */
-	UFUNCTION(BlueprintCallable, Category = "XGWebp", meta = (WorldContext = "WorldContextObject"))
+	UFUNCTION(BlueprintCallable, Category = "XGWebp", meta = (WorldContext = "WorldContextObject",DisplayName="BeginRecord"))
 		static	void BeginRecord(
 		UObject* WorldContextObject, 
 		FString InGeneratedWebpPicturesPath, 
@@ -47,7 +47,7 @@ public:
 	 * @param	bBegin							Whether to succeed to begin Recording Webp
 	 * @return	
 	 */
-	UFUNCTION(BlueprintCallable, Category = "XGWebp", meta = (WorldContext = "WorldContextObject"))
+	UFUNCTION(BlueprintCallable, Category = "XGWebp", meta = (WorldContext = "WorldContextObject",DisplayName = "BeginRecordFullViewport"))
 		static	void BeginRecordFullViewport(
 		UObject* WorldContextObject, 
 		FString InGeneratedWebpPicturesPath,
@@ -59,11 +59,17 @@ public:
 	 * @param	InFinishWebpBPDegelete			When gerating webp is finished,call InFinishWebpBPDegelete to execute.
 	 * @return	
 	 */
-	UFUNCTION(BlueprintCallable, Category = "XGWebp", meta = (WorldContext = "WorldContextObject"))
+	UFUNCTION(BlueprintCallable, Category = "XGWebp", meta = (WorldContext = "WorldContextObject", DisplayName = "EndRecord"))
 		static	void EndRecord(UObject* WorldContextObject, FXGWebpFinishGenerateWebp InFinishWebpBPDegelete);
 
 
-
+	/**
+	 * @brief	
+	 * @param	
+	 * @return	
+	 */
+	UFUNCTION(BlueprintCallable, Category = "XGWebp", meta = (WorldContext = "WorldContextObject",DisplayName = "LoadWebp"))
+	static	void LoadWebp(UObject* WorldContextObject, FString InWebpFilePath);
 
 
 

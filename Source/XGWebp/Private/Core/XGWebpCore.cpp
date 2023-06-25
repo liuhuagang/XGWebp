@@ -1,58 +1,59 @@
 // Copyright Xiao Gang. All Rights Reserved.
-#include "Core/XGWebpCore.h"
+#include "XGWebpCore.h"
 #include "iostream"
 #include "vector"
 #include "Slate/SceneViewport.h"
-#include "Core/XGWebpLib.h"
+#include "XGWebpLib.h"
 #include "Engine/GameViewportClient.h"
 #include "Engine/World.h"
 #include "Misc/Paths.h"
+#include "Log/LogXGWebp.h"
 PRAGMA_DISABLE_OPTIMIZATION
 
 bool FXGWebpCore::GenerateStaticWebpPicture(FString& InPicturePath,
-    TArray<FColor>& InPictureColors,
-    FVector2D& InPictureSize,
-    int32           InQualityFactor /*= 100*/)
+	TArray<FColor>& InPictureColors,
+	FVector2D& InPictureSize,
+	int32           InQualityFactor /*= 100*/)
 {
-    if (!CheckWebpPicturePath(InPicturePath))
-    {
-        return false;
-    }
-    if (InPictureColors.Num() != InPictureSize.X * InPictureSize.Y)
-    {
+	if (!CheckWebpPicturePath(InPicturePath))
+	{
+		return false;
+	}
+	if (InPictureColors.Num() != InPictureSize.X * InPictureSize.Y)
+	{
 		UE_LOG(LogXGWebp, Display, TEXT("FXGWebpCore::GenerateStaticWebpPicture Wrong ColorsNum"));
-        return false;
-    }
+		return false;
+	}
 
 
-    const char* OutPicturePath = TCHAR_TO_ANSI(*InPicturePath);
+	const char* OutPicturePath = TCHAR_TO_ANSI(*InPicturePath);
 
-    unsigned char* Data = new unsigned char[InPictureColors.Num() * 4 + 1];
-    memset(Data, 0, InPictureColors.Num() * 4 + 1);
-    int i = 0;
-    for (auto& Tmp : InPictureColors)
-    {
-        Data[i] = Tmp.R;
-        i++;
-        Data[i] = Tmp.G;
-        i++;
-        Data[i] = Tmp.B;
-        i++;
-        Data[i] = 255 - Tmp.A;
-        i++;
-    }
-    InQualityFactor = FMath::Clamp(InQualityFactor, 0, 100);
+	unsigned char* Data = new unsigned char[InPictureColors.Num() * 4 + 1];
+	memset(Data, 0, InPictureColors.Num() * 4 + 1);
+	int i = 0;
+	for (auto& Tmp : InPictureColors)
+	{
+		Data[i] = Tmp.R;
+		i++;
+		Data[i] = Tmp.G;
+		i++;
+		Data[i] = Tmp.B;
+		i++;
+		Data[i] = 255 - Tmp.A;
+		i++;
+	}
+	InQualityFactor = FMath::Clamp(InQualityFactor, 0, 100);
 
-    bool Result = FXGWebpLibStruct::GenerateWebpByRGBA(OutPicturePath,
-        Data,
-        InPictureSize.X,
-        InPictureSize.Y,
-        InQualityFactor);
+	bool Result = FXGWebpLibStruct::GenerateWebpByRGBA(OutPicturePath,
+		Data,
+		InPictureSize.X,
+		InPictureSize.Y,
+		InQualityFactor);
 
-    delete[] Data;
-    Data = nullptr;
+	delete[] Data;
+	Data = nullptr;
 
-    return Result;
+	return Result;
 }
 
 bool FXGWebpCore::GenerateDynamicWebpPicture(FString& InPicturePath, TSharedPtr<FXGWebpPictureInformation> InWebpPictureInformation, TArray<TArray<FColor>>& InPicturesColors, TArray<int32>& WebpTimestepMillisecond, int32 InQualityFactor /*= 100*/)
@@ -68,10 +69,10 @@ bool FXGWebpCore::GenerateDynamicWebpPicture(FString& InPicturePath, TSharedPtr<
 			return false;
 		}
 	}
-    if (InPicturesColors.Num()!= WebpTimestepMillisecond.Num())
-    {
-        return false;
-    }
+	if (InPicturesColors.Num() != WebpTimestepMillisecond.Num())
+	{
+		return false;
+	}
 
 
 
@@ -97,17 +98,17 @@ bool FXGWebpCore::GenerateDynamicWebpPicture(FString& InPicturePath, TSharedPtr<
 		Datas.push_back(Data);
 	}
 
-    std::vector<int> Timestamps;
-    for (auto& InTimestamp: WebpTimestepMillisecond)
-    {
-        Timestamps.push_back(InTimestamp);
-    }
+	std::vector<int> Timestamps;
+	for (auto& InTimestamp : WebpTimestepMillisecond)
+	{
+		Timestamps.push_back(InTimestamp);
+	}
 	InQualityFactor = FMath::Clamp(InQualityFactor, 0, 100);
 
 	bool Result = FXGWebpLibStruct::GenerateDymaicWebpByRGBA(
-        OutPicturePath,
+		OutPicturePath,
 		Datas,
-        Timestamps,
+		Timestamps,
 		InWebpPictureInformation->GetPictureWidth(),
 		InWebpPictureInformation->GetPictureHeight(),
 		InQualityFactor);
@@ -121,6 +122,19 @@ bool FXGWebpCore::GenerateDynamicWebpPicture(FString& InPicturePath, TSharedPtr<
 
 
 	return Result;
+}
+
+bool FXGWebpCore::LoadDynamicWebpPicture(FString& InWebpFilePath, TArray<int32>& OutWebpTimestepMillisecond, TArray<TArray<FColor>>& OutPicturesColors, TSharedPtr<FXGWebpPictureInformation> OutWebpPictureInformation)
+{
+
+	const char* InWebpFilePath_ANSI = TCHAR_TO_ANSI(*InWebpFilePath);
+	std::vector<const unsigned char*> OutRGBADatas;
+	std::vector<int> OutTimestamps_ms;
+	int OutWidth = -1; 
+	int OutHeight = -1;
+	bool bLoadWebp = FXGWebpLibStruct::LoadDynamicWebpPictureByRGBA(InWebpFilePath_ANSI, OutRGBADatas, OutTimestamps_ms, OutWidth, OutHeight);
+
+	return bLoadWebp;
 }
 
 bool FXGWebpCore::GetViewportSize(UObject* WorldContextObject, FVector2D& OutViewportSize)
@@ -160,13 +174,13 @@ bool FXGWebpCore::CheckWebpPicturePath(FString& InGeneratedWebpPicturesPath)
 
 bool FXGWebpCore::CheckInWebpPictureSize(UObject* WorldContextObject, TSharedPtr<FXGWebpPictureInformation> InWebpPictureInformation)
 {
-    if (!WorldContextObject|| !WorldContextObject->GetWorld())
-    {
-        return false;
+	if (!WorldContextObject || !WorldContextObject->GetWorld())
+	{
+		return false;
 
-    }
+	}
 	FVector2D ViewportSize;
-	if (GetViewportSize(WorldContextObject,ViewportSize))
+	if (GetViewportSize(WorldContextObject, ViewportSize))
 	{
 		bool	bX0 = InWebpPictureInformation->X0 >= 0 && InWebpPictureInformation->X0 < InWebpPictureInformation->X1;
 		bool	bX1 = InWebpPictureInformation->X1 <= ViewportSize.X;

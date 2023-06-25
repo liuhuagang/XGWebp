@@ -1,8 +1,8 @@
 // Copyright Xiao Gang. All Rights Reserved.
 #include "XGWebpLibrary.h"
-#include "Core/XGWebpMangeSubSystem.h"
+#include "XGWebpMangeSubSystem.h"
 #include "Kismet/GameplayStatics.h"
-#include "Core/XGWebpCore.h"
+#include "XGWebpCore.h"
 
 bool UXGWebpLibrary::BeginRecord(UObject* WorldContextObject, FString InGeneratedWebpPicturesPath, FXGWebpPictureInformation InWebpPictureInformation)
 {
@@ -64,5 +64,13 @@ void UXGWebpLibrary::EndRecord(UObject* WorldContextObject, FSimpleDelegate InFi
 	UXGWebpMangeSubSystem* XGWebpMangeSubSystem = GameInstance->GetSubsystem<UXGWebpMangeSubSystem>();
 
 	XGWebpMangeSubSystem->EndRecord(InFinisnWebpDelegate, InFinshWebpBPDelegate);
+}
+
+void UXGWebpLibrary::LoadWebp(UObject* WorldContextObject, FString InWebpFilePath)
+{
+	UGameInstance* GameInstance = UGameplayStatics::GetGameInstance(WorldContextObject);
+	UXGWebpDisplaySubSystem* XGWebpDisplaySubSystem = GameInstance->GetSubsystem<UXGWebpDisplaySubSystem>();
+
+	XGWebpDisplaySubSystem->LoadWebp(InWebpFilePath);
 }
 

@@ -1,6 +1,6 @@
 // Copyright Xiao Gang. All Rights Reserved.
 #define _CRT_SECURE_NO_WARNINGS
-#include "Core/XGWebpLib.h"
+#include "XGWebpLib.h"
 #include "iostream"
 #include "CoreMinimal.h"
 #if PLATFORM_WINDOWS
@@ -140,6 +140,11 @@ bool FXGWebpLibStruct::GenerateDymaicWebpByRGBA(const char* InWebpSavePath,
 	WebPDataClear(&WebpPictureData);
 
 #endif
+	return false;
+}
+
+bool FXGWebpLibStruct::LoadDynamicWebpPictureByRGBA(const char* InWebpFilePath, std::vector<const unsigned char*>& OutRGBADatas, std::vector<int>& OutTimestamps_ms, int& OutWidth, int& OutHeight )
+{
 	return false;
 }
 

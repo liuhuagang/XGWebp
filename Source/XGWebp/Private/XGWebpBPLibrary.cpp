@@ -26,3 +26,8 @@ void UXGWebpBPLibrary::EndRecord(
 	UXGWebpLibrary::EndRecord(WorldContextObject, FSimpleDelegate(), InFinishWebpBPDegelete);
 }
 
+void UXGWebpBPLibrary::LoadWebp(UObject* WorldContextObject, FString InWebpFilePath)
+{
+	UXGWebpLibrary::LoadWebp(WorldContextObject, InWebpFilePath);
+}
+

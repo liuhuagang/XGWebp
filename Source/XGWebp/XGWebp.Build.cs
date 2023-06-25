@@ -11,8 +11,11 @@ public class XGWebp : ModuleRules
 		
 		PrivateIncludePaths.AddRange(
 			new string[] {
-
-			}
+                "XGWebp/Public/Core",
+                "XGWebp/Public/Log",
+                "XGWebp/Public/Subsystem",
+                "XGWebp/Public/Type",
+            }
 			);
 			
 		
@@ -28,11 +31,11 @@ public class XGWebp : ModuleRules
 		
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
-            {       "Core",
+            {       
+				"Core",
                 "CoreUObject",
 				"Engine",
                 "RenderCore",
-
                 "XGWebpLibrary",
                 "Projects"
 

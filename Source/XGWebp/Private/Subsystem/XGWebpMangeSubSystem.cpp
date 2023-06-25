@@ -1,9 +1,9 @@
 // Copyright Xiao Gang. All Rights Reserved.
-#include "Core/XGWebpMangeSubSystem.h"
-#include "Core/XGWebpCore.h"
+#include "XGWebpMangeSubSystem.h"
+#include "XGWebpCore.h"
 #include "Engine/World.h"
 #include "Async/Async.h"
-
+#include "Log/LogXGWebp.h"
 bool UXGWebpMangeSubSystem::ShouldCreateSubsystem(UObject* Outer) const
 {
 	return true;
@@ -102,7 +102,7 @@ void UXGWebpMangeSubSystem::EndRecord(FSimpleDelegate& InFinisnWebpDelegate, FXG
 	AsyncTask(ENamedThreads::AnyThread, [&]()
 		{
 			FPlatformProcess::Sleep(0.2);
-	FScopeLock XGLock(&XGWebpMutex);
+			FScopeLock XGLock(&XGWebpMutex);
 
 	bool GenerateWebp = FXGWebpCore::GenerateDynamicWebpPicture(
 		GeneratedWebpPicturesPath,
