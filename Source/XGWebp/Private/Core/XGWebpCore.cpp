@@ -124,15 +124,41 @@ bool FXGWebpCore::GenerateDynamicWebpPicture(FString& InPicturePath, TSharedPtr<
 	return Result;
 }
 
-bool FXGWebpCore::LoadDynamicWebpPicture(FString& InWebpFilePath, TArray<int32>& OutWebpTimestepMillisecond, TArray<TArray<FColor>>& OutPicturesColors, TSharedPtr<FXGWebpPictureInformation> OutWebpPictureInformation)
+bool FXGWebpCore::LoadDynamicWebpPicture(FString& InWebpFilePath, TArray<int32>& OutWebpTimestepMillisecond, TArray<uint8*>& OutPicturesColors,int32& InWebpWidth,int32& InWebpHeight)
 {
+	if (!CheckWebpPicturePath(InWebpFilePath))
+	{
+		return false;
+	}
+
 
 	const char* InWebpFilePath_ANSI = TCHAR_TO_ANSI(*InWebpFilePath);
 	std::vector<const unsigned char*> OutRGBADatas;
 	std::vector<int> OutTimestamps_ms;
-	int OutWidth = -1; 
-	int OutHeight = -1;
-	bool bLoadWebp = FXGWebpLibStruct::LoadDynamicWebpPictureByRGBA(InWebpFilePath_ANSI, OutRGBADatas, OutTimestamps_ms, OutWidth, OutHeight);
+
+	bool bLoadWebp = FXGWebpLibStruct::LoadDynamicWebpPictureByRGBA(InWebpFilePath_ANSI, OutRGBADatas, OutTimestamps_ms, InWebpWidth, InWebpHeight);
+
+	if (!bLoadWebp)
+	{
+		return false;
+		
+	}
+
+	for (int32 WebpIndex = 0; WebpIndex < OutRGBADatas.size(); WebpIndex++)
+	{
+
+		OutPicturesColors.Add(const_cast<unsigned char*>(OutRGBADatas[WebpIndex]));
+		OutWebpTimestepMillisecond.Add(OutTimestamps_ms[WebpIndex]);
+	
+	}
+
+	
+
+
+
+
+
+
 
 	return bLoadWebp;
 }

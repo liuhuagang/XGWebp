@@ -42,13 +42,29 @@ void UXGWebpDisplaySubSystem::LoadWebp(FString InWebpFilePath)
 {
 
 	TArray<int32> OutWebpTimestepMillisecond;
-	TArray<TArray<FColor>> OutPicturesColors;
-	TSharedPtr<FXGWebpPictureInformation> OutWebpPictureInformation =MakeShared<FXGWebpPictureInformation>();
+	TArray<uint8*> OutPicturesColors;
+	int32 WebpWidth = 0;
+	int32 WebpHeight = 0;
 
 	//此处需要异步
-	bool bLoadWebp= FXGWebpCore::LoadDynamicWebpPicture(InWebpFilePath, OutWebpTimestepMillisecond, OutPicturesColors, OutWebpPictureInformation);
+	bool bLoadWebp= FXGWebpCore::LoadDynamicWebpPicture(InWebpFilePath, OutWebpTimestepMillisecond, OutPicturesColors, WebpWidth, WebpHeight);
+
+	
+	
+		WebpTexture =	UTexture2D::CreateTransient(WebpWidth, WebpHeight, EPixelFormat::PF_R8G8B8A8);
+
+	
 
 
+		uint8* textureData = static_cast<uint8*>(WebpTexture->PlatformData->Mips[0].BulkData.Lock(LOCK_READ_WRITE));
+		FMemory::Memcpy(textureData ,OutPicturesColors[10], WebpWidth * WebpHeight * 4);
+
+		WebpTexture->PlatformData->Mips[0].BulkData.Unlock();
+		WebpTexture->UpdateResource();
+
+
+
+		
 
 
 }

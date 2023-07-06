@@ -58,7 +58,7 @@ Some delegate type ,log ,InformationStruct and so on.
 Thanks for your support. now ,this is simple webp function ,more function will be added ~~
 if any problem about this plugin,contact with me .
 My Email:709777172@qq.com
-discord:https://discord.gg/KQ3RMtrA
+https://discord.gg/tsxxKSRDqU
 
 All under the Creative Commons Attribution 4.0 License, and code are licensed under the Apache 2.0 License
 

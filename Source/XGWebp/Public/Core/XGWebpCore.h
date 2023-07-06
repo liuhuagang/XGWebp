@@ -29,8 +29,9 @@ public:
 	(
 		FString& InWebpFilePath,
 		TArray<int32>& OutWebpTimestepMillisecond,
-		TArray<TArray<FColor>>& OutPicturesColors,
-		TSharedPtr<FXGWebpPictureInformation> OutWebpPictureInformation
+		TArray<uint8*>& OutPicturesColors,
+		int32& InWebpWidth, 
+		int32& InWebpHeight
 	);
 
 

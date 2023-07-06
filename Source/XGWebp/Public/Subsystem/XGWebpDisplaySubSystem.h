@@ -5,6 +5,7 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "XGWebpType.h"
 #include "Tickable.h"
+#include "Engine/Texture2D.h"
 #include "XGWebpDisplaySubSystem.generated.h"
 
 
@@ -37,6 +38,8 @@ protected:
 	UFUNCTION()
 	void LoadWebp(FString InWebpFilePath);
 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	 UTexture2D* WebpTexture;
 
 
 };
