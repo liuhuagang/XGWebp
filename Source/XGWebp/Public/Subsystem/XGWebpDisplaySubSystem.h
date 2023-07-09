@@ -42,4 +42,15 @@ protected:
 	 UTexture2D* WebpTexture;
 
 
+	bool bShowWebp =false;
+	int32 WebpShowIndex=-1;
+	int32 CurrentMillisecond=-1;
+	TArray<int32> WebpTimestepMillisecond;
+	TArray<TArray<FColor>> PicturesColors;
+	int32 WebpWidth = 0;
+	int32 WebpHeight = 0;
+
+
+
+
 };

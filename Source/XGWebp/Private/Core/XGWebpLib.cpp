@@ -193,21 +193,6 @@ bool FXGWebpLibStruct::LoadDynamicWebpPictureByRGBA(const char* InWebpFilePath, 
 		memset(oneWebpColorData,0, OutWidth * OutHeight * 4);
 		memcpy(oneWebpColorData,buf , OutWidth * OutHeight * 4);
 
-		for (int i =0;i< OutWidth * OutHeight;i++)
-		{
-
-			//char Temp= oneWebpColorData[i * 4];
-			//oneWebpColorData[i * 4]= oneWebpColorData[i * 4 +3];
-			//oneWebpColorData[i * 4+3 ]= 125;
-			
-
-
-
-
-		}
-
-
-
 		OutRGBADatas.push_back(oneWebpColorData);
 		OutTimestamps_ms.push_back(Timestamp);
 
