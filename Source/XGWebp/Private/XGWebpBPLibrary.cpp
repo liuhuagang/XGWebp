@@ -1,6 +1,9 @@
 // Copyright Xiao Gang. All Rights Reserved.
 #include "XGWebpBPLibrary.h"
-#include "XGWebpLibrary.h"
+#include "Subsystem/XGWebpMangeSubSystem.h"
+#include "Kismet/GameplayStatics.h"
+#include "Core/XGWebpCore.h"
+#include "Subsystem/XGWebpDisplaySubSystem.h"
 
 void UXGWebpBPLibrary::BeginRecord(
 	UObject* WorldContextObject,
@@ -8,7 +11,25 @@ void UXGWebpBPLibrary::BeginRecord(
 	FXGWebpPictureInformation InWebpPictureInformation,
 	bool& bBegin)
 {
-	bBegin = UXGWebpLibrary::BeginRecord(WorldContextObject, InGeneratedWebpPicturesPath, InWebpPictureInformation);
+	bBegin =false;
+
+	if (!WorldContextObject)
+	{
+		return ;
+	}
+	if (!WorldContextObject->GetWorld())
+	{
+		return ;
+	}
+
+	UGameInstance* GameInstance = UGameplayStatics::GetGameInstance(WorldContextObject);
+	UXGWebpMangeSubSystem* XGWebpMangeSubSystem = GameInstance->GetSubsystem<UXGWebpMangeSubSystem>();
+
+	TSharedPtr<FXGWebpPictureInformation> XGWebpPictureInformationPtr = MakeShareable(new FXGWebpPictureInformation(InWebpPictureInformation));
+
+
+	bBegin=	XGWebpMangeSubSystem->BeginRecord(InGeneratedWebpPicturesPath, XGWebpPictureInformationPtr);
+
 }
 
 void UXGWebpBPLibrary::BeginRecordFullViewport(
@@ -16,18 +37,68 @@ void UXGWebpBPLibrary::BeginRecordFullViewport(
 	FString InGeneratedWebpPicturesPath,
 	bool& bBegin)
 {
-	bBegin = UXGWebpLibrary::BeginRecordFullViewport(WorldContextObject, InGeneratedWebpPicturesPath);
+	bBegin =false;
+
+	if (!WorldContextObject)
+	{
+		return ;
+	}
+	if (!WorldContextObject->GetWorld())
+	{
+		return ;
+	}
+
+	UGameInstance* GameInstance = UGameplayStatics::GetGameInstance(WorldContextObject);
+	UXGWebpMangeSubSystem* XGWebpMangeSubSystem = GameInstance->GetSubsystem<UXGWebpMangeSubSystem>();
+
+	FVector2D ViewportSize;
+
+	if (FXGWebpCore::GetViewportSize(WorldContextObject, ViewportSize))
+	{
+		TSharedPtr<FXGWebpPictureInformation> WebpPictureInformation = MakeShareable(new FXGWebpPictureInformation(0, 0, ViewportSize.X - 1, ViewportSize.Y - 1));
+		bBegin=XGWebpMangeSubSystem->BeginRecord(InGeneratedWebpPicturesPath, WebpPictureInformation);
+	}
+
+	
+
+
 }
 
 void UXGWebpBPLibrary::EndRecord(
 	UObject* WorldContextObject,
 	FXGWebpFinishGenerateWebp InFinishWebpBPDegelete)
 {
-	UXGWebpLibrary::EndRecord(WorldContextObject, FSimpleDelegate(), InFinishWebpBPDegelete);
+	if (!WorldContextObject)
+	{
+		return;
+	}
+	if (!WorldContextObject->GetWorld())
+	{
+		return;
+	}
+
+	UGameInstance* GameInstance = UGameplayStatics::GetGameInstance(WorldContextObject);
+	UXGWebpMangeSubSystem* XGWebpMangeSubSystem = GameInstance->GetSubsystem<UXGWebpMangeSubSystem>();
+
+	XGWebpMangeSubSystem->EndRecord(InFinishWebpBPDegelete);
+
+
 }
 
 void UXGWebpBPLibrary::LoadWebp(UObject* WorldContextObject, FString InWebpFilePath)
 {
-	UXGWebpLibrary::LoadWebp(WorldContextObject, InWebpFilePath);
+	if (!WorldContextObject)
+	{
+		return;
+	}
+	if (!WorldContextObject->GetWorld())
+	{
+		return;
+	}
+
+	UGameInstance* GameInstance = UGameplayStatics::GetGameInstance(WorldContextObject);
+	UXGWebpDisplaySubSystem* XGWebpDisplaySubSystem = GameInstance->GetSubsystem<UXGWebpDisplaySubSystem>();
+
+	XGWebpDisplaySubSystem->LoadWebp(InWebpFilePath);
 }
 

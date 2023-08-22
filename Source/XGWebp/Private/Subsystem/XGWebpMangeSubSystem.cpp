@@ -87,14 +87,14 @@ void UXGWebpMangeSubSystem::RecordOneFrame(float DeltaTime)
 
 }
 
-void UXGWebpMangeSubSystem::EndRecord(FSimpleDelegate& InFinisnWebpDelegate, FXGWebpFinishGenerateWebp& InFinshWebpBPDelegate)
+void UXGWebpMangeSubSystem::EndRecord( FXGWebpFinishGenerateWebp& InFinshWebpBPDelegate)
 {
 	if (ProcessType != EXGWebpProcessType::Recording)
 	{
 		return;
 	}
 	ProcessType = EXGWebpProcessType::Generating;
-	FinisnWebpDelegate = InFinisnWebpDelegate;
+
 	FinshWebpBPDelegate = InFinshWebpBPDelegate;
 
 
@@ -127,7 +127,6 @@ void UXGWebpMangeSubSystem::GenerateWebpCallBack(bool bGenerateWebp)
 		UGameViewportClient::OnScreenshotCaptured().Remove(ScreenHandle);
 	}
 
-	FinisnWebpDelegate.ExecuteIfBound();
 	FinshWebpBPDelegate.ExecuteIfBound(bGenerateWebp);
 	ResetRecord();
 }

@@ -16,7 +16,7 @@
 UCLASS()
 class  UXGWebpDisplaySubSystem : public UGameInstanceSubsystem, public FTickableGameObject
 {
-	friend class UXGWebpLibrary;
+	friend class UXGWebpBPLibrary;
 	
 	GENERATED_BODY()
 public:
@@ -39,7 +39,7 @@ protected:
 	void LoadWebp(FString InWebpFilePath);
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	 UTexture2D* WebpTexture;
+	UTexture2D* WebpTexture;
 
 
 	bool bShowWebp =false;

@@ -15,7 +15,7 @@ DECLARE_DELEGATE_OneParam(FGenerateWebpCallBack,bool)
 UCLASS()
 class  UXGWebpMangeSubSystem : public UGameInstanceSubsystem, public FTickableGameObject
 {
-	friend class UXGWebpLibrary;
+	friend class UXGWebpBPLibrary;
 	
 	GENERATED_BODY()
 public:
@@ -35,9 +35,11 @@ public:
 protected:
 	bool BeginRecord(FString& InGeneratedWebpPicturesPath, TSharedPtr< FXGWebpPictureInformation> InWebpPictureInformation);
 	void RecordOneFrame(float DeltaTime);
-	void EndRecord(FSimpleDelegate& InFinisnWebpDelegate, FXGWebpFinishGenerateWebp& InFinshWebpBPDelegate);
+	void EndRecord( FXGWebpFinishGenerateWebp& InFinshWebpBPDelegate);
+
 	UFUNCTION()
 	void GenerateWebpCallBack(bool bGenerateWebp);
+
 	void ResetRecord();
 
 
@@ -55,8 +57,8 @@ private:
 	FDelegateHandle ScreenHandle;
 	TArray<TArray<FColor>> WebPColor;
 	TArray<int32> WebpTimestepMillisecond;
+
 	FGenerateWebpCallBack GenerateWebpCallBackDelegate;
-	FSimpleDelegate FinisnWebpDelegate;
 	FXGWebpFinishGenerateWebp FinshWebpBPDelegate;
 
 	FCriticalSection XGWebpMutex;

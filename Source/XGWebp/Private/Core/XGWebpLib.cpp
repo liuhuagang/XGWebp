@@ -43,9 +43,10 @@ bool FXGWebpLibStruct::GenerateWebpByRGBA(const char* InWebpSavePath,
 	{
 		fwrite(Output, Size, 1, FDes);
 		fclose(FDes);
-		return true;
+
 	}
 	WebPFree(Output);
+	return true;
 #endif
 
 	return false;

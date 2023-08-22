@@ -35,7 +35,7 @@ public:
 		UObject* WorldContextObject, 
 		FString InGeneratedWebpPicturesPath, 
 		FXGWebpPictureInformation InWebpPictureInformation,
-		 bool& bBegin);
+		bool& bBegin);
 
 
 	/**
