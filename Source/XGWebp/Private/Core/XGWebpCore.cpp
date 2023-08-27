@@ -124,7 +124,7 @@ bool FXGWebpCore::GenerateDynamicWebpPicture(FString& InPicturePath, TSharedPtr<
 	return Result;
 }
 
-bool FXGWebpCore::LoadDynamicWebpPicture(FString& InWebpFilePath, TArray<int32>& OutWebpTimestepMillisecond, TArray<TArray<FColor>>& OutPicturesColors,int32& OutWebpWidth,int32& OutWebpHeight)
+bool FXGWebpCore::LoadDynamicWebpPicture(FString InWebpFilePath, TArray<int32>& OutWebpTimestepMillisecond, TArray<TArray<FColor>>& OutPicturesColors,int32& OutWebpWidth,int32& OutWebpHeight)
 {
 	if (!CheckWebpPicturePath(InWebpFilePath))
 	{

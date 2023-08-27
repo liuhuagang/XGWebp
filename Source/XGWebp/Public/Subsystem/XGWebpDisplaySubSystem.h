@@ -19,6 +19,11 @@ class  UXGWebpDisplaySubSystem : public UGameInstanceSubsystem, public FTickable
 	friend class UXGWebpBPLibrary;
 	
 	GENERATED_BODY()
+
+public:
+	UXGWebpDisplaySubSystem();
+
+	void LoadedWebpCallShow(bool bLoaded);
 public:
 
 
@@ -35,18 +40,28 @@ public:
 
 protected:
 	
-	UFUNCTION()
-	void LoadWebp(FString InWebpFilePath);
+
+	void LoadWebp(FXGWebpLoadAndShowWebp InLoadAndShowEbpDegelete,
+		FString InWebpFilePath);
+	void ReleaseLoadedWebp();
+
+
+
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	UTexture2D* WebpTexture;
+	UTexture2D* WebpTexture=nullptr;
+
+	EXGWebpLoadAndShowType LoadAndShowStatus=EXGWebpLoadAndShowType::None;
+	FXGWebpLoadAndShowWebp XGWebpLoadAndShowWebp;
 
 
-	bool bShowWebp =false;
+
 	int32 WebpShowIndex=-1;
 	int32 CurrentMillisecond=-1;
+
 	TArray<int32> WebpTimestepMillisecond;
 	TArray<TArray<FColor>> PicturesColors;
+
 	int32 WebpWidth = 0;
 	int32 WebpHeight = 0;
 

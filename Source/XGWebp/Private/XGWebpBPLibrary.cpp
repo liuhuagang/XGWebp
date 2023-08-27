@@ -85,7 +85,10 @@ void UXGWebpBPLibrary::EndRecord(
 
 }
 
-void UXGWebpBPLibrary::LoadWebp(UObject* WorldContextObject, FString InWebpFilePath)
+void UXGWebpBPLibrary::LoadWebp
+(UObject* WorldContextObject, 
+FXGWebpLoadAndShowWebp InLoadAndShowEbpDegelete, 
+FString InWebpFilePath)
 {
 	if (!WorldContextObject)
 	{
@@ -99,6 +102,24 @@ void UXGWebpBPLibrary::LoadWebp(UObject* WorldContextObject, FString InWebpFileP
 	UGameInstance* GameInstance = UGameplayStatics::GetGameInstance(WorldContextObject);
 	UXGWebpDisplaySubSystem* XGWebpDisplaySubSystem = GameInstance->GetSubsystem<UXGWebpDisplaySubSystem>();
 
-	XGWebpDisplaySubSystem->LoadWebp(InWebpFilePath);
+	XGWebpDisplaySubSystem->LoadWebp(InLoadAndShowEbpDegelete,InWebpFilePath);
+}
+
+void UXGWebpBPLibrary::ReleaseLoadedWebp(UObject* WorldContextObject)
+{
+
+	if (!WorldContextObject)
+	{
+		return;
+	}
+	if (!WorldContextObject->GetWorld())
+	{
+		return;
+	}
+	UGameInstance* GameInstance = UGameplayStatics::GetGameInstance(WorldContextObject);
+	UXGWebpDisplaySubSystem* XGWebpDisplaySubSystem = GameInstance->GetSubsystem<UXGWebpDisplaySubSystem>();
+
+	XGWebpDisplaySubSystem->ReleaseLoadedWebp();
+
 }
 

@@ -27,7 +27,7 @@ public:
 	/** Many pictures within webp */
 	static bool LoadDynamicWebpPicture
 	(
-		FString& InWebpFilePath,
+		FString InWebpFilePath,
 		TArray<int32>& OutWebpTimestepMillisecond,
 		TArray<TArray<FColor>>& OutPicturesColors,
 		int32& OutWebpWidth, 

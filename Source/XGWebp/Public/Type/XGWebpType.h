@@ -7,6 +7,8 @@
 
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FXGWebpFinishGenerateWebp,bool,bFinishGenerate);
+DECLARE_DYNAMIC_DELEGATE_FourParams(FXGWebpLoadAndShowWebp,bool,bLoad,UTexture2D*,OutWebpPicture,int32,WebpWidth,int32,WebpHeight);
+
 
 USTRUCT(BlueprintType)
 struct XGWEBP_API FXGWebpPictureInformation 
@@ -39,5 +41,14 @@ enum class EXGWebpProcessType :uint8
 	None,
 	Recording,
 	Generating,
+	Max
+};
+
+UENUM()
+enum class EXGWebpLoadAndShowType :uint8
+{
+	None,
+	Loading,
+	Showing,
 	Max
 };
