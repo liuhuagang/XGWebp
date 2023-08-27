@@ -17,7 +17,7 @@ UCLASS()
 class  UXGWebpDisplaySubSystem : public UGameInstanceSubsystem, public FTickableGameObject
 {
 	friend class UXGWebpBPLibrary;
-	
+
 	GENERATED_BODY()
 
 public:
@@ -39,25 +39,21 @@ public:
 	virtual bool    IsTickable() const override;
 
 protected:
-	
 
-	void LoadWebp(FXGWebpLoadAndShowWebp InLoadAndShowEbpDegelete,
-		FString InWebpFilePath);
+
+	void LoadWebp(FXGWebpLoadAndShowWebp InLoadAndShowEbpDegelete, FString InWebpFilePath);
 	void ReleaseLoadedWebp();
 
+	UPROPERTY()
+		UTexture2D* WebpTexture = nullptr;
 
-
-
-	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	UTexture2D* WebpTexture=nullptr;
-
-	EXGWebpLoadAndShowType LoadAndShowStatus=EXGWebpLoadAndShowType::None;
+	EXGWebpLoadAndShowType LoadAndShowStatus = EXGWebpLoadAndShowType::None;
 	FXGWebpLoadAndShowWebp XGWebpLoadAndShowWebp;
 
 
 
-	int32 WebpShowIndex=-1;
-	int32 CurrentMillisecond=-1;
+	int32 WebpShowIndex = -1;
+	int32 CurrentMillisecond = -1;
 
 	TArray<int32> WebpTimestepMillisecond;
 	TArray<TArray<FColor>> PicturesColors;

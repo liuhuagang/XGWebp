@@ -1,7 +1,7 @@
 # XGWebp
 Hello,everyone,This XGWebp Document. I will show you how to use this plugin to generate your own webp~
 ![image](DocumentPicture/XG_Webp_Main.png)
-## BlurprintAPI
+## BlurprintAPI_GenerateWebp
 We hava three simple Blueprin API;
 ![image](DocumentPicture/XG_Webp_process.png)
 ### 1.Establish your Folder
@@ -30,15 +30,45 @@ just when you need ,end this Record. We will generate webp in right path .It is 
 
 ### 5.Notes
 Do not call begin record many times and end record many time .you should call one by one .
-If you need finish many webp at the same time ,you can use c++Api
+If you need finish many webp at the same time ,you can use c++Api by youself.
+
 ### 6.Package
 There are no specail thing  to notify.
 this plugins can work in both Editor and Runtime.
 ### 7.Version
 In fact ,this plugins maybe can alse  be used 4.27,5.0,5.1,and so on.
 ![image](DocumentPicture/xg.webp)
+
+## BlurprintAPI_LoadAndShowWebp
+![image](DocumentPicture/ShowWebp/ShowWebp.png)
+### 1.GetWebp
+you should at least have one webp,which contain many frame.
+We provide sampleWebp,you can get it in plugins: XGWebp\DocumentPicture\xg.webp
+### 2.LoadWebp 
+It is async task. you just need to call LoadWebp.
+If you do not need it ,Remeber to call ReleaseLoadedWebp.
+if load it successfully ,you can use the UTexture2D,the width and the height .
+
+
+![image](DocumentPicture/ShowWebp/CallLoadWebp.png)
+
+Simeple Material:
+
+
+![image](DocumentPicture/ShowWebp/SimpleMaterial.png)
+
+### 3.ReleaseLoadedWebp
+Although you have release the webp. but the UTexture2D will keep the last frame picture.It will release by the engine lastly,when you don't reference it.
+![image](DocumentPicture/ShowWebp/ReleaseWebp.png)
+
+### 4.Anti-Aliasing
+If you show webp ,sometimes it will display some sawtooth. you can change the way of  Anti-Aliasing.And so on.
+now,I have no more understanding abou Render.
+
+![image](DocumentPicture/ShowWebp/RenderWay.png)
+
 ## C++API
-### 1.UXGWebpLibrary
+### 1.UXGWebpLibrary(Discarded)
 provide C++ Api you can use .It is same with Blueprint ,just the callback is different.
 
 ### 2.FXGWebpCore
@@ -54,13 +84,26 @@ do not use it, it just provide working with webp from blueprint.
 ### 5.XGWebpType.h
 Some delegate type ,log ,InformationStruct and so on.
 
+### 6.UXGWebpDisplaySubSystem
+This is used to update webp,you don't need to care about it.
+
+
+
+
+
 ## Conclusion
 Thanks for your support. now ,this is simple webp function ,more function will be added ~~
 if any problem about this plugin,contact with me .
 My Email:709777172@qq.com
 https://discord.gg/tsxxKSRDqU
 
+
+
 All under the Creative Commons Attribution 4.0 License, and code are licensed under the Apache 2.0 License
 
+## Problem
+github no upload dll.So you can not pull the code to Execute...to be fixed.
 
+
+![image](DocumentPicture/NeedLib.png)
 
