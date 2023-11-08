@@ -1,5 +1,6 @@
 # XGWebp
-Hello,everyone,This XGWebp Document. I will show you how to use this plugin to generate your own webp~
+Hello,everyone,This XGWebp Document.   
+I will show you how to use this plugin to generate your own webp。
 ![image](DocumentPicture/XG_Webp_Main.png)
 ## BlurprintAPI_GenerateWebp
 We hava three simple Blueprin API;
@@ -9,7 +10,6 @@ This Folder mush exist and can not be root directory.So this example I have a fo
 ### 2.Begin to Record
 you can use the beginrecord or beginrecord fullviewport.They are no more different,just webp size is different.
 ![image](DocumentPicture/XG_Webp_BeginRecord.png)
-
 I strongly recommand you to use full viewport ,because  if you input wrong picture position ,you will not get right Beginning.
 The extension must end with ".webp".
 So ,the right path is "D:/Webp/xg.webp"
@@ -94,10 +94,8 @@ This is used to update webp,you don't need to care about it.
 ## Conclusion
 Thanks for your support. now ,this is simple webp function ,more function will be added ~~
 if any problem about this plugin,contact with me .
-My Email:709777172@qq.com
-https://discord.gg/tsxxKSRDqU
-
-
+My Email:   709777172@qq.com  
+My Discord: https://discord.gg/tsxxKSRDqU
 
 All under the Creative Commons Attribution 4.0 License, and code are licensed under the Apache 2.0 License
 
